@@ -1,7 +1,6 @@
 package org.example.service;
 
 import java.util.List;
-
 import org.example.exception.GradeNotFoundException;
 import org.example.model.Grade;
 
@@ -10,10 +9,9 @@ public interface AcademicRecordService {
 
   Integer sumNumberOfGrades();
 
-
   Grade getGrade(String proyecto) throws GradeNotFoundException;
 
-	List<Grade> listAllGrades();
+  List<Grade> listAllGrades();
 
-	Grade addGrade(Grade newGrade);
+  Grade addGrade(Grade newGrade);
 }

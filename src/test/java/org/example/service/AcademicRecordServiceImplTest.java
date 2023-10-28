@@ -1,12 +1,11 @@
 package org.example.service;
 
-import java.time.LocalDate;
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.time.LocalDate;
+import java.util.List;
 import org.example.model.Grade;
-import org.example.repository.GradeInMemoryRepositoryImpl;
+import org.example.repository.GradeUsingFileRepositoryImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -16,7 +15,7 @@ class AcademicRecordServiceImplTest {
 
   @BeforeEach
   void setUp() {
-    this.academicRecordService = new AcademicRecordServiceImpl(new GradeInMemoryRepositoryImpl());
+    this.academicRecordService = new AcademicRecordServiceImpl(new GradeUsingFileRepositoryImpl());
   }
 
   @Test
@@ -24,10 +23,8 @@ class AcademicRecordServiceImplTest {
     Integer numberOfGrades = this.academicRecordService.sumNumberOfGrades();
 
     assertNotNull(numberOfGrades);
-    assertEquals(
-        4,
-        numberOfGrades); // Debido a que solo son 4 notas definidas en el
-                         // GradeInMemoryRepositoryImpl, al realizar la suma el valor debe ser 4
+    assertEquals(4, numberOfGrades); // Debido a que solo son 4 notas definidas en el
+    // GradeInMemoryRepositoryImpl, al realizar la suma el valor debe ser 4
   }
 
   @Test
@@ -47,17 +44,19 @@ class AcademicRecordServiceImplTest {
     assertEquals(4.175D, average); // Se verifica que el promedio (average) sea igual a 4.175
   }
 
-
   @Test
   void a_new_grade_is_added_successful() {
     /*
      * Se adiciona una nueva nota a la lista
      * */
-    Grade newGrade = new Grade( "PROJECT FINAL", 5D, LocalDate.now() );
+    Grade newGrade = new Grade("PROJECT FINAL", 5D, LocalDate.now());
     Grade createdGrade = this.academicRecordService.addGrade(newGrade);
 
     assertNotNull(createdGrade); // Se verifica que la nota creada no sea nula
-    assertEquals(newGrade.grade(), createdGrade.grade()); // Se verifica que el valor de la nota creada sea igual al valor definido
+    assertEquals(
+        newGrade.grade(),
+        createdGrade
+            .grade()); // Se verifica que el valor de la nota creada sea igual al valor definido
   }
 
   @Test
@@ -69,8 +68,8 @@ class AcademicRecordServiceImplTest {
 
     assertNotNull(grades); // Se verifica que la lista no sea nula
     assertFalse(grades.isEmpty()); // Se verifica que la lista no sea vacia
-    assertEquals(4, grades.size());//Se verifican que esten las 4 notas originalmente definidas UNIDAD 1 , UNIDAD 2 , UNIDAD 3 y UNIDAD 4
+    assertEquals(
+        4, grades.size()); // Se verifican que esten las 4 notas originalmente definidas UNIDAD 1 ,
+    // UNIDAD 2 , UNIDAD 3 y UNIDAD 4
   }
-
-
 }
